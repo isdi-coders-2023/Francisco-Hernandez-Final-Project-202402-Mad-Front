@@ -6,7 +6,7 @@ import { Component } from '@angular/core';
   imports: [],
   template: `
     <header>
-      <h1>{{ title }}</h1>
+      <h1><img src="../../../favicon.ico" alt="logo-canline" /> {{ title }}</h1>
       <ng-content></ng-content>
     </header>
   `,

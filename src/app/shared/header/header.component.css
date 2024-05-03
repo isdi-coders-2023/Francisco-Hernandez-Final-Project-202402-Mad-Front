@@ -2,8 +2,9 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-inline: 2rem;
   padding-block: 2rem;
+  background-color: white;
+  padding-inline: 2rem;
   h1 {
     color: #0765a4;
   }

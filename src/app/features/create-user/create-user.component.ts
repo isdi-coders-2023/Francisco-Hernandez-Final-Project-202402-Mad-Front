@@ -18,10 +18,10 @@ import {
         y disfruta aprendiendo lo que te gusta
       </p>
       <form [formGroup]="createUserFb">
-        <label>Nombre de usuario: <input type="text" /></label>
-        <label>Email: <input type="email" /></label>
-        <label>Contraseña: <input type="password" /></label>
-        <button type="submit">Enviar</button>
+        <label> <input type="text" placeholder="nombre de usuario" /></label>
+        <label> <input type="email" placeholder="email" /></label>
+        <label> <input type="password" placeholder="contraseña" /></label>
+        <button type="submit" [disabled]="createUserFb.invalid">Enviar</button>
       </form>
     </section>
   `,

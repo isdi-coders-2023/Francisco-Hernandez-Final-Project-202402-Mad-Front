@@ -1,20 +1,22 @@
-export type UserLogin = {
-  username: string;
-  password: string;
-};
-
-export type UserCreate = {
-  username:string
-  email: string;
-  password: string;
-  imageUrl: string
-};
+import { Project } from '../projects.models/projects.models';
 
 export type User = {
-  id: string
-  username: string
+  id: string;
+  name: string;
   email: string;
-  password: string
+  password?: string;
+  imageUrl?: string;
+  projects: Project[];
+};
+
+export type UserLogin = {
+  email: string;
+  password: string;
+};
+
+export type UserCreateDto = {
+  name: string;
+  email: string;
+  password: string;
   imageUrl: string;
-  // projects: Projects[]
-}
+};

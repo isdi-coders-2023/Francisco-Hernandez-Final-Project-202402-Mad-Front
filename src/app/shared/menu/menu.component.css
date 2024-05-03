@@ -1,0 +1,19 @@
+ul {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+
+  a {
+    color: #0765a4;
+    text-decoration: none;
+    font-weight: 800;
+    &:hover {
+      border-bottom: 2.5px solid #0765a4;
+    }
+  }
+}
+
+img {
+  cursor: pointer;
+}

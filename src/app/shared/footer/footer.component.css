@@ -1,0 +1,15 @@
+footer {
+  background-color: #f7c600;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem;
+  ul {
+    list-style: none;
+    display: flex;
+    gap: 0.5rem;
+  }
+  address {
+    color: white;
+  }
+}

@@ -1,27 +1,19 @@
-# Frontend
+# Canline Frontend
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.0.
+Este es el repositorio del frontend de la aplicación Canline, diseñada para estudiantes que desean compartir y adquirir apuntes de otros usuarios. Aquí se encuentran las funcionalidades relacionadas con la interfaz de usuario y la interacción con el backend.
 
-## Development server
+## Funcionalidades
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+Autenticación de Usuarios: Registro, inicio de sesión y gestión de cuentas de usuarios.
 
-## Code scaffolding
+Exploración de Apuntes: Visualización de los proyectos compartidos por otros usuarios.
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+Creación y Edición de Proyectos: Capacidad para crear nuevos proyectos y actualizarlos según sea necesario.
 
-## Build
+## Tecnologías Utilizadas
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+Framework Angular: Angular se utiliza como el framework principal para el desarrollo del frontend.
 
-## Running unit tests
+Lenguajes: HTML, CSS y TypeScript se utilizan para crear las vistas, estilos y lógica del frontend.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Gestión de Estado: Se utiliza RxJS para el manejo reactivo de la información y la comunicación con el backend.

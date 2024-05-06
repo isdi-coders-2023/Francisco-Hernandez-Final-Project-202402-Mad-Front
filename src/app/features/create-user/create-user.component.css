@@ -24,6 +24,12 @@ section {
       border-radius: 0.5rem;
       border: none;
     }
+    p {
+      cursor: pointer;
+      &:hover {
+        border-bottom: 1px solid white;
+      }
+    }
     button {
       background-color: white;
       color: #0765a4;

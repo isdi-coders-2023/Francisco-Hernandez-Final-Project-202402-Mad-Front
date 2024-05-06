@@ -6,5 +6,13 @@ export const routes: Routes = [
     path: 'home',
     loadComponent: () => import('./features/home/home.component'),
   },
+  {
+    path: 'myProfile',
+    loadComponent: () => import('./features/my-profile/my-profile.component'),
+  },
+  // {
+  //   path: 'favourites',
+  //   loadComponent: () => import('./features/favourite/favourite.component'),
+  // },
   { path: '**', redirectTo: 'home' },
 ];

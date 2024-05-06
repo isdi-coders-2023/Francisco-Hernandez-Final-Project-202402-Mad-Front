@@ -17,3 +17,14 @@ ul {
 img {
   cursor: pointer;
 }
+
+button {
+  color: #0765a4;
+  font-weight: 800;
+  border: none;
+  background-color: white;
+  cursor: pointer;
+  &:hover {
+    border-bottom: 2.5px solid #0765a4;
+  }
+}

@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
+import { UsersStateService } from '../../services/users.services/users.state/users.state.service';
 
 @Component({
   selector: 'app-menu',
@@ -18,13 +19,20 @@ import { RouterLink } from '@angular/router';
     @if (showMenu) {
     <nav>
       <ul>
-        @for (item of menuOptions; track $index) {
         <li>
-          <a [routerLink]="['/home']" routerLinkActive="router-link-active">{{
-            item
-          }}</a>
+          <a [routerLink]="['/home']" routerLinkActive="router-link-active"
+            >home</a
+          >
         </li>
-        }
+        <li>
+          <a [routerLink]="['/myProfile']" routerLinkActive="router-link-active"
+            >perfil</a
+          >
+        </li>
+
+        <li>
+          <button (click)="logout()" [routerLink]="['/home']">salir</button>
+        </li>
       </ul>
     </nav>
     }
@@ -32,10 +40,15 @@ import { RouterLink } from '@angular/router';
   styleUrl: './menu.component.css',
 })
 export class MenuComponent {
+  router!: RouterLink;
   menuOptions = ['mi perfil', 'mis proyectos', 'mis favoritos'];
   showMenu: boolean = false;
+  state = inject(UsersStateService);
 
   displayMenu(display = true) {
     return (this.showMenu = display);
+  }
+  logout() {
+    this.state.setLogout();
   }
 }

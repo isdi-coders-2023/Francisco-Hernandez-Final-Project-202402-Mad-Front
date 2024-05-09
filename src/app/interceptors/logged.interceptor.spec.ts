@@ -7,10 +7,6 @@ describe('loggedInterceptor', () => {
   const interceptor: HttpInterceptorFn = (req, next) =>
     TestBed.runInInjectionContext(() => loggedInterceptor(req, next));
 
-  beforeEach(() => {
-    TestBed.configureTestingModule({});
-  });
-
   it('should be created', () => {
     expect(interceptor).toBeTruthy();
   });

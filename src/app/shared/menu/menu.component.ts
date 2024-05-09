@@ -21,7 +21,7 @@ import { UsersStateService } from '../../services/users.services/users.state/use
       <ul>
         <li>
           <a [routerLink]="['/home']" routerLinkActive="router-link-active"
-            >home</a
+            >categorias</a
           >
         </li>
         <li>
@@ -29,7 +29,13 @@ import { UsersStateService } from '../../services/users.services/users.state/use
             >perfil</a
           >
         </li>
-
+        <li>
+          <a
+            [routerLink]="['/myProjects']"
+            routerLinkActive="router-link-active"
+            >mis proyectos</a
+          >
+        </li>
         <li>
           <button (click)="logout()" [routerLink]="['/home']">salir</button>
         </li>
@@ -41,7 +47,6 @@ import { UsersStateService } from '../../services/users.services/users.state/use
 })
 export class MenuComponent {
   router!: RouterLink;
-  menuOptions = ['mi perfil', 'mis proyectos', 'mis favoritos'];
   showMenu: boolean = false;
   state = inject(UsersStateService);
 

@@ -7,8 +7,10 @@ import { HeaderComponent } from '../../shared/header/header.component';
   template: `<app-header />
     <section>
       <h2>Error</h2>
-      <img src="../../../assets/error.svg" alt="error-picture" width="300" />
-      <p>emos ido engañados</p>
+      <div>
+        <img src="../../../assets/error.svg" alt="error-picture" width="300" />
+        <p>emos ido engañados</p>
+      </div>
       <a href="">volver</a>
     </section> `,
   styleUrl: './error.component.css',

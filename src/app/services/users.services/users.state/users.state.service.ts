@@ -34,6 +34,7 @@ const initialState: State = {
 export class UsersStateService {
   private state$ = new BehaviorSubject<State>(initialState);
   private repoUsers = inject(RepoUsersService);
+
   constructor() {
     const tokenValid = localStorage.getItem('frontend');
     if (!tokenValid) {
@@ -78,6 +79,12 @@ export class UsersStateService {
       loginState: 'idle',
       token: null,
       currentPayload: null,
+    });
+  }
+
+  setDelete(id: string) {
+    this.repoUsers.delete(id).subscribe(() => {
+      this.setLogout();
     });
   }
 }

@@ -12,35 +12,42 @@ export type Project = {
 export type ProjectCreateDto = {
   title: string;
   content: string;
-  archieve: string;
+  archive: string;
   category: Category;
-  author: User;
+  authorId: string;
 };
 
-type Category = {
-  geografia: string;
-  anatomia: string;
-  matematicas: string;
-  arte: string;
-  literatura: string;
-  fisica: string;
-  biologia: string;
-  historia: string;
-  quimica: string;
-  musica: string;
-  economia: string;
-  filosofia: string;
-  derecho: string;
-  idiomas: string;
-  informatica: string;
-  geologia: string;
-  psicologia: string;
-  contabilidad: string;
-  astronomia: string;
-  hosteleria: string;
-  sociologia: string;
-  sexologia: string;
-  ingenieria: string;
-  arquitectura: string;
-  paleontologia: string;
+export type ProjectUpdateDto = {
+  title?: string;
+  content?: string;
+  archive?: string;
+  category?: Category;
+  authorId?: string;
 };
+
+export type Category =
+  | 'geography'
+  | 'anatomy'
+  | 'mathematics'
+  | 'art'
+  | 'literature'
+  | 'physics'
+  | 'biology'
+  | 'history'
+  | 'chemistry'
+  | 'music'
+  | 'economics'
+  | 'philosophy'
+  | 'law'
+  | 'languages'
+  | 'computerScience'
+  | 'geology'
+  | 'psychology'
+  | 'accounting'
+  | 'astronomy'
+  | 'hospitality'
+  | 'sociology'
+  | 'sexology'
+  | 'engineering'
+  | 'architecture'
+  | 'paleontology';

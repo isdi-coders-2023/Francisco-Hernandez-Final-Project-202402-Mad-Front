@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { ProjectStateService } from '../../services/projects.services/project.state/project.state.service';
+import { Category } from '../../models/projects.models/projects.models';
 
 @Component({
   selector: 'app-categories',
@@ -21,6 +23,7 @@ import { Component } from '@angular/core';
   styleUrl: './categories.component.css',
 })
 export class CategoriesComponent {
+  state = inject(ProjectStateService);
   categories = [
     'geografía',
     'anatomía',
@@ -47,4 +50,8 @@ export class CategoriesComponent {
     'sexología',
     'ingenieria',
   ];
+
+  filter(category: Category) {
+    this.state.loadProjects(category);
+  }
 }

@@ -29,18 +29,18 @@ import { UsersStateService } from '../../services/users.services/users.state/use
         <label>
           <input
             type="text"
-            placeholder="nombre de usuario"
+            placeholder="nombre de usuario*"
             formControlName="name"
         /></label>
         }
 
         <label>
-          <input type="email" placeholder="email" formControlName="email"
+          <input type="email" placeholder="email*" formControlName="email"
         /></label>
         <label>
           <input
             type="password"
-            placeholder="contraseña"
+            placeholder="contraseña*"
             formControlName="password"
         /></label>
         @if(!isUserWithAccount){
@@ -91,7 +91,7 @@ export class CreateUserComponent {
       next: ({ token }) => this.state.setLogin(token),
       error: (error) => {
         console.log(error);
-        this.state.setLoginState('error');
+        this.state.setLoginState('idle');
       },
     });
   }

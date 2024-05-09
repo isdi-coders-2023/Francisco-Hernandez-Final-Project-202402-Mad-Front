@@ -3,18 +3,18 @@ section {
     background-color: white;
     color: #0765a4;
     text-align: center;
-    margin-inline: 8.8rem;
-    margin-bottom: 1rem;
+    margin-inline: 8.5rem;
+    margin-block: 1rem;
     border-radius: 1rem;
-    padding: 1rem;
+    padding: 0.5rem;
   }
 }
 .grid-container {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 25px;
-  padding: 1rem;
   cursor: pointer;
+  padding-inline: 0.5rem;
 }
 
 .grid-item {

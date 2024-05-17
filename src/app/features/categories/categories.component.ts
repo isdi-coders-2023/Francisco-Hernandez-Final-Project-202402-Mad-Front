@@ -1,57 +1,72 @@
 import { Component, inject } from '@angular/core';
 import { ProjectStateService } from '../../services/projects.services/project.state/project.state.service';
+import { Router, RouterLink } from '@angular/router';
 import { Category } from '../../models/projects.models/projects.models';
 
 @Component({
   selector: 'app-categories',
   standalone: true,
-  imports: [],
+  imports: [RouterLink],
   template: `
     <section>
       <h2>categorías</h2>
-      <section>
-        <div class="grid-container">
-          @for (item of categories; track $index) {
-          <div class="grid-item">
-            <a href="#">{{ item }}</a>
-          </div>
-          }
+      <div class="grid-container">
+        @for (item of getKeys(categoryMapping); track $index) {
+        <div
+          [routerLink]="['/projectList']"
+          routerLinkActive="router-link-active"
+          class="grid-item"
+          (click)="filter(getValue(item), item)"
+          (keyup.enter)="filter(getValue(item), item)"
+          tabindex="0"
+        >
+          <a> {{ item }}</a>
         </div>
-      </section>
+        }
+      </div>
     </section>
   `,
   styleUrl: './categories.component.css',
 })
 export class CategoriesComponent {
   state = inject(ProjectStateService);
-  categories = [
-    'geografía',
-    'anatomía',
-    'matemáticas',
-    'arte',
-    'literatura',
-    'física',
-    'biología',
-    'historia',
-    'química',
-    'música',
-    'economía',
-    'filosofía',
-    'derecho',
-    'idiomas',
-    'informática',
-    'geología',
-    'derecho',
-    'psicología',
-    'contabilidad',
-    'astronomía',
-    'hostelería',
-    'sociología',
-    'sexología',
-    'ingenieria',
-  ];
+  router = inject(Router);
 
-  filter(category: Category) {
-    this.state.loadProjects(category);
+  categoryMapping: Record<string, Category> = {
+    geografía: 'geography',
+    anatomía: 'anatomy',
+    matemáticas: 'mathematics',
+    arte: 'art',
+    literatura: 'literature',
+    física: 'physics',
+    biología: 'biology',
+    historia: 'history',
+    química: 'chemistry',
+    música: 'music',
+    economía: 'economics',
+    filosofía: 'philosophy',
+    derecho: 'law',
+    idiomas: 'languages',
+    informática: 'computerScience',
+    geología: 'geology',
+    psicología: 'psychology',
+    contabilidad: 'accounting',
+    astronomía: 'astronomy',
+    hostelería: 'hospitality',
+    sociología: 'sociology',
+    sexología: 'sexology',
+    ingenieria: 'engineering',
+    arquitectura: 'architecture',
+  };
+  filter(category: Category, title: string) {
+    this.state.filterProject(category, title);
+  }
+
+  getKeys(record: Record<string, string>) {
+    return Object.keys(record);
+  }
+
+  getValue(key: string) {
+    return this.categoryMapping[key].valueOf() as Category;
   }
 }

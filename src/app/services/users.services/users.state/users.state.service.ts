@@ -34,18 +34,10 @@ const initialState: State = {
 export class UsersStateService {
   private state$ = new BehaviorSubject<State>(initialState);
   private repoUsers = inject(RepoUsersService);
+  private currentUsername = new BehaviorSubject<string>('');
+  public currentUsername$ = this.currentUsername.asObservable();
 
-  constructor() {
-    const tokenValid = localStorage.getItem('frontend');
-    if (!tokenValid) {
-      return;
-    }
-    this.state$.next({
-      ...this.state$.value,
-      loginState: 'logged',
-      token: tokenValid,
-    });
-  }
+  constructor() {}
   getState(): Observable<State> {
     return this.state$.asObservable();
   }
@@ -66,7 +58,7 @@ export class UsersStateService {
         ...this.state$.value,
         loginState: 'logged',
         token: token,
-        currentPayload,
+        currentPayload: currentPayload,
         currentUser: user,
       });
     });
@@ -82,9 +74,7 @@ export class UsersStateService {
     });
   }
 
-  setDelete(id: string) {
-    this.repoUsers.delete(id).subscribe(() => {
-      this.setLogout();
-    });
+  getUsername(username: string) {
+    this.currentUsername.next(username);
   }
 }

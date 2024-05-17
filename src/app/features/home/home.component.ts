@@ -20,7 +20,6 @@ import { FooterComponent } from '../../shared/footer/footer.component';
     <app-header> <app-menu /> </app-header>
     <app-categories />
     } @case ('error') { <app-error /> } }
-    <app-footer />
   `,
   styleUrl: './home.component.css',
   imports: [

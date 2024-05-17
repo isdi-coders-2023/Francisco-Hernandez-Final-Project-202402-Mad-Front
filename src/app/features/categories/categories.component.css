@@ -15,6 +15,7 @@ section {
   gap: 25px;
   cursor: pointer;
   padding-inline: 0.5rem;
+  margin-block: 2rem;
 }
 
 .grid-item {

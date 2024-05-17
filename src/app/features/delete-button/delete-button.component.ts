@@ -11,24 +11,30 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [],
   template: ` <div>
-    <button type="button" (click)="delete()">borrar cuenta</button>
+    <button type="button" (click)="deleteUser()">borrar cuenta</button>
   </div>`,
   styleUrl: './delete-button.component.css',
 })
 export class DeleteButtonComponent {
   repo = inject(RepoUsersService);
   state = inject(UsersStateService);
-  router!: Router;
+  router = inject(Router);
 
-  delete() {
+  deleteUser() {
     const currentUser = this.state.state.currentPayload as Payload;
-    console.log(currentUser);
     if (!currentUser.id) {
       throw new Error();
     }
 
     const userId = currentUser.id;
-    console.log(userId);
-    this.state.setDelete(userId);
+    this.repo.delete(userId).subscribe({
+      next: () => {
+        this.state.setLogout();
+        this.router.navigate(['']);
+      },
+      error: () => {
+        this.router.navigate(['/error']);
+      },
+    });
   }
 }

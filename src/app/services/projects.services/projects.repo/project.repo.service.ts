@@ -3,7 +3,7 @@ import { Injectable, inject } from '@angular/core';
 import { environment } from '../../../../environments/environment.development';
 import {
   Category,
-  ProjectCreateDto,
+  Project,
   ProjectUpdateDto,
 } from '../../../models/projects.models/projects.models';
 
@@ -15,16 +15,16 @@ export class ProjectRepoService {
   url = environment.apiUrl + '/projects';
 
   getProject() {
-    return this.httpClient.get(this.url + '/');
+    return this.httpClient.get<Project[]>(this.url + '/');
   }
 
   getProjectByCategory(category: Category) {
-    return this.httpClient.get(this.url + '/' + category);
+    return this.httpClient.get<Project[]>(this.url + '/' + category);
   }
 
-  createProject(data: ProjectCreateDto) {
+  createProject(data: FormData) {
     const url = this.url + '/';
-    return this.httpClient.post(url, data);
+    return this.httpClient.post<Project>(url, data);
   }
 
   updateProject(id: string, data: ProjectUpdateDto) {
@@ -34,6 +34,6 @@ export class ProjectRepoService {
 
   deleteProject(id: string) {
     const url = this.url + '/';
-    return this.httpClient.delete(url + id);
+    return this.httpClient.delete<Project>(url + id);
   }
 }

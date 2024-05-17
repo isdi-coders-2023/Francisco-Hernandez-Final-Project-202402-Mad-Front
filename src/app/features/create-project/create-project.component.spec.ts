@@ -2,7 +2,6 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import CreateProjectComponent from './create-project.component';
 import { provideHttpClient, withFetch } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
 
 describe('CreateProjectComponent', () => {
   let component: CreateProjectComponent;
@@ -11,7 +10,7 @@ describe('CreateProjectComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [CreateProjectComponent],
-      providers: [provideHttpClient(withFetch()), ActivatedRoute],
+      providers: [provideHttpClient(withFetch())],
     }).compileComponents();
 
     fixture = TestBed.createComponent(CreateProjectComponent);

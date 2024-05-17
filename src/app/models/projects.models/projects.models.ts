@@ -4,7 +4,7 @@ export type Project = {
   id: string;
   title: string;
   content: string;
-  archieve: string;
+  archive: string;
   category: Category;
   author: User;
 };

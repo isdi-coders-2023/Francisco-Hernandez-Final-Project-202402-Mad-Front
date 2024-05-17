@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import MyProfileComponent from './my-profile.component';
+import ProjectListComponent from './project-list.component';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 
-describe('MyProfileComponent', () => {
-  let component: MyProfileComponent;
-  let fixture: ComponentFixture<MyProfileComponent>;
+describe('ProjectListComponent', () => {
+  let component: ProjectListComponent;
+  let fixture: ComponentFixture<ProjectListComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [MyProfileComponent],
+      imports: [ProjectListComponent],
       providers: [provideHttpClient(withFetch())],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(MyProfileComponent);
+    fixture = TestBed.createComponent(ProjectListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

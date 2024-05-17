@@ -38,6 +38,7 @@ module.exports = function (config) {
       reporters: [{ type: "text" }, { type: "lcov" }],
       includeAllSourcer: true,
     },
+
     reporters: ["mocha", "kjhtml"],
     port: 9876,
     colors: true,

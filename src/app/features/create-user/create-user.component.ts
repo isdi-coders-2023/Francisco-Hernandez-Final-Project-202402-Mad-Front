@@ -71,9 +71,9 @@ import { UsersStateService } from '../../services/users.services/users.state/use
   imports: [ReactiveFormsModule, HeaderComponent],
 })
 export class CreateUserComponent {
-  isUserWithAccount: boolean = false;
+  isUserWithAccount: boolean = true;
   userFg: FormGroup = new FormGroup({
-    name: new FormControl('', Validators.required),
+    name: new FormControl(''),
     email: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),
   });
@@ -88,9 +88,10 @@ export class CreateUserComponent {
   isLoggingIn() {
     const userData = { ...this.userFg.value };
     this.repo.login(userData).subscribe({
-      next: ({ token }) => this.state.setLogin(token),
-      error: (error) => {
-        console.log(error);
+      next: ({ token }) => {
+        this.state.setLogin(token);
+      },
+      error: () => {
         this.state.setLoginState('idle');
       },
     });
@@ -102,9 +103,18 @@ export class CreateUserComponent {
       ...this.userFg.value,
     };
 
-    return this.repo.createUser(userData).subscribe(() => {
-      this.state.setLoginState('logged');
-      this.router.navigate(['/home']);
+    this.repo.createUser(userData).subscribe({
+      next: () => {
+        this.isUserWithAccount = !this.isUserWithAccount;
+        this.userFg.reset();
+      },
+      error: () => {
+        this.router.navigate(['/error']);
+      },
     });
+  }
+
+  getName() {
+    this.state.getUsername(this.userFg.value.name);
   }
 }

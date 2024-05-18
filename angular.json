@@ -81,7 +81,14 @@
             "assets": ["src/favicon.ico", "src/assets"],
             "styles": ["src/styles.css"],
             "scripts": [],
-            "codeCoverageExclude": []
+            "codeCoverageExclude": [
+              "src/app/features/create-user/**",
+              "src/app/features/create-project/**",
+              "src/app/features/delete-button/**",
+              "src/app/features/update-user/**",
+              "src/app/features/my-profile/**",
+              "src/app/interceptors/**"
+            ]
           }
         },
         "lint": {

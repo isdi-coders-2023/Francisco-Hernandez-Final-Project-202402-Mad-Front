@@ -4,29 +4,28 @@ import {
   HttpTestingController,
 } from '@angular/common/http/testing';
 import { ProjectRepoService } from './project.repo.service';
+import { environment } from '../../../../environments/environment.development';
 import {
   Category,
-  ProjectCreateDto,
+  Project,
   ProjectUpdateDto,
 } from '../../../models/projects.models/projects.models';
 
 describe('ProjectRepoService', () => {
   let service: ProjectRepoService;
   let httpTestingController: HttpTestingController;
+  const apiUrl = environment.apiUrl + '/projects';
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule], // Usar HttpClientTestingModule para pruebas HTTP
+      imports: [HttpClientTestingModule],
       providers: [ProjectRepoService],
     });
-
-    // Inyectar el servicio y el HttpTestingController
     service = TestBed.inject(ProjectRepoService);
     httpTestingController = TestBed.inject(HttpTestingController);
   });
 
   afterEach(() => {
-    // Verificar que no hayan solicitudes pendientes
     httpTestingController.verify();
   });
 
@@ -34,71 +33,81 @@ describe('ProjectRepoService', () => {
     expect(service).toBeTruthy();
   });
 
-  it('should retrieve a project', () => {
-    const mockProject = { id: '1', name: 'Project One' };
+  it('should get projects', () => {
+    const mockProjects: Project[] = [
+      { id: '1', title: 'Project 1' } as Project,
+      { id: '2', title: 'Project 2' } as Project,
+    ];
 
-    service.getProject().subscribe((project) => {
+    service.getProject().subscribe((projects) => {
+      expect(projects).toEqual(mockProjects);
+    });
+
+    const req = httpTestingController.expectOne(apiUrl + '/');
+    expect(req.request.method).toBe('GET');
+    req.flush(mockProjects);
+  });
+
+  it('should get projects by category', () => {
+    const mockProjects: Project[] = [
+      { id: '1', title: 'Project 1' } as Project,
+      { id: '2', title: 'Project 2' } as Project,
+    ];
+    const category: Category = 'art';
+
+    service.getProjectByCategory(category).subscribe((projects) => {
+      expect(projects).toEqual(mockProjects);
+    });
+
+    const req = httpTestingController.expectOne(apiUrl + '/' + category);
+    expect(req.request.method).toBe('GET');
+    req.flush(mockProjects);
+  });
+
+  it('should create a project', () => {
+    const mockProject: Project = { id: '1', title: 'Project 1' } as Project;
+    const formData = new FormData();
+    formData.append('name', 'Project 1');
+
+    service.createProject(formData).subscribe((project) => {
       expect(project).toEqual(mockProject);
     });
 
-    const req = httpTestingController.expectOne(`${service.url}/`);
-    expect(req.request.method).toEqual('GET');
+    const req = httpTestingController.expectOne(apiUrl + '/');
+    expect(req.request.method).toBe('POST');
     req.flush(mockProject);
   });
 
-  it('should retrieve a project by category', () => {
-    const category: Category = 'law';
-    const mockProject = { id: '1', name: 'Tech Project' };
+  it('should update a project', () => {
+    const mockProject: Project = {
+      id: '1',
+      title: 'Updated Project',
+    } as Project;
+    const projectUpdateDto: ProjectUpdateDto = { title: 'Updated Project' };
 
-    service.getProjectByCategory(category).subscribe((project) => {
-      expect(project).toEqual(mockProject);
-    });
+    service
+      .updateProject(mockProject.id, projectUpdateDto)
+      .subscribe((project) => {
+        expect(project).toEqual(mockProject);
+      });
 
-    const req = httpTestingController.expectOne(`${service.url}/${category}`);
-    expect(req.request.method).toEqual('GET');
+    const req = httpTestingController.expectOne(apiUrl + '/' + mockProject.id);
+    expect(req.request.method).toBe('PATCH');
     req.flush(mockProject);
-  });
-
-  it('should create a new project', () => {
-    const mockProject: ProjectCreateDto = {
-      title: 'New Project',
-      content: 'project',
-      archive: 'archivo',
-      authorId: '1',
-      category: 'music',
-    };
-
-    service.createProject(mockProject).subscribe((project) => {
-      expect(project).toEqual(mockProject);
-    });
-
-    const req = httpTestingController.expectOne(`${service.url}/`);
-    expect(req.request.method).toEqual('POST');
-    req.flush(mockProject);
-  });
-
-  it('should update an existing project', () => {
-    const projectId = '1';
-    const mockUpdate: ProjectUpdateDto = { title: 'Updated Project' };
-
-    service.updateProject(projectId, mockUpdate).subscribe((updatedProject) => {
-      expect(updatedProject).toEqual(mockUpdate);
-    });
-
-    const req = httpTestingController.expectOne(`${service.url}/${projectId}`);
-    expect(req.request.method).toEqual('PATCH');
-    req.flush(mockUpdate);
   });
 
   it('should delete a project', () => {
-    const projectId = '1';
+    const mockProject: Project = {
+      id: '1',
+      title: 'Project to delete',
+    } as Project;
 
-    service.deleteProject(projectId).subscribe(() => {
-      expect().nothing();
+    service.deleteProject(mockProject.id).subscribe((project) => {
+      expect(project).toEqual(mockProject);
     });
 
-    const req = httpTestingController.expectOne(`${service.url}/${projectId}`);
-    expect(req.request.method).toEqual('DELETE');
-    req.flush({});
+    const req = httpTestingController.expectOne(apiUrl + '/' + mockProject.id);
+    expect(req.request.method).toBe('DELETE');
+    req.flush(mockProject);
   });
 });

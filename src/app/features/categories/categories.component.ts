@@ -13,8 +13,6 @@ import { Category } from '../../models/projects.models/projects.models';
       <div class="grid-container">
         @for (item of getKeys(categoryMapping); track $index) {
         <div
-          [routerLink]="['/projectList']"
-          routerLinkActive="router-link-active"
           class="grid-item"
           (click)="filter(getValue(item), item)"
           (keyup.enter)="filter(getValue(item), item)"
@@ -60,6 +58,7 @@ export class CategoriesComponent {
   };
   filter(category: Category, title: string) {
     this.state.filterProject(category, title);
+    this.router.navigate(['/projectList']);
   }
 
   getKeys(record: Record<string, string>) {

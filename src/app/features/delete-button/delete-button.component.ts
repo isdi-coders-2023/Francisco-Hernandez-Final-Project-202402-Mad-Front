@@ -25,16 +25,6 @@ export class DeleteButtonComponent {
     if (!currentUser.id) {
       throw new Error();
     }
-
-    const userId = currentUser.id;
-    this.repo.delete(userId).subscribe({
-      next: () => {
-        this.state.setLogout();
-        this.router.navigate(['']);
-      },
-      error: () => {
-        this.router.navigate(['/error']);
-      },
-    });
+    this.state.deleteUser(currentUser.id);
   }
 }

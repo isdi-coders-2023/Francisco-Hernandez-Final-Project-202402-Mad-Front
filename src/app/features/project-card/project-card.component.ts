@@ -7,8 +7,8 @@ import { RouterLink } from '@angular/router';
   standalone: true,
   imports: [RouterLink],
   template: `<div>
-    <h3>{{ project.title }}</h3>
-    <img [src]="project.archive" alt=" archive project" width="100" />
+    <h3>{{ project?.title }}</h3>
+    <img [src]="project?.archive" alt=" archive project" width="100" />
   </div> `,
   styleUrl: './project-card.component.css',
 })

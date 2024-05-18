@@ -8,7 +8,7 @@ import {
 import { HeaderComponent } from '../../shared/header/header.component';
 import { MenuComponent } from '../../shared/menu/menu.component';
 import { FooterComponent } from '../../shared/footer/footer.component';
-import { Router, RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
 import { ProjectStateService } from '../../services/projects.services/project.state/project.state.service';
 import {
   Payload,
@@ -51,14 +51,11 @@ import { Category } from '../../models/projects.models/projects.models';
         /></label>
         <button type="submit" (click)="addProject()">añadir</button>
       </form>
-      <a [routerLink]="['/myProjects']" routerLinkActive="router-link-active"
-        >volver</a
-      >
+      <a (click)="comeBack()" (keyup)="comeBack()" tabindex="0">volver</a>
     </section>
   `,
   styleUrl: './create-project.component.css',
   imports: [
-    RouterLink,
     ReactiveFormsModule,
     HeaderComponent,
     MenuComponent,
@@ -135,5 +132,9 @@ export default class CreateProjectComponent {
 
   getKeys(record: Record<string, string>) {
     return Object.keys(record);
+  }
+
+  comeBack() {
+    this.router.navigate(['/myProjects']);
   }
 }

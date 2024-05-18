@@ -1,17 +1,16 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import MyProjectsComponent from './my-projects.component';
 import { provideHttpClient, withFetch } from '@angular/common/http';
-import { ActivatedRoute } from '@angular/router';
+import MyProjectsComponent from './my-projects.component';
 
-describe('MyProjectsComponent', () => {
+describe('MyProjectsComponents', () => {
   let component: MyProjectsComponent;
   let fixture: ComponentFixture<MyProjectsComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [MyProjectsComponent],
-      providers: [provideHttpClient(withFetch()), ActivatedRoute],
+      providers: [provideHttpClient(withFetch())],
     }).compileComponents();
 
     fixture = TestBed.createComponent(MyProjectsComponent);

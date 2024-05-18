@@ -30,6 +30,12 @@ module.exports = function (config) {
       // source files, that you wanna generate coverage for
       // do not include tests or libraries
       // (these files will be instrumented by Istanbul)
+      "src/app/features/create-user/**/!(*spec|*mock).js": ["coverage"],
+      "src/app/features/create-project/**/!(*spec|*mock).js": ["coverage"],
+      "src/app/features/delete-button/**/!(*spec|*mock).js": ["coverage"],
+      "src/app/features/update-user/**/!(*spec|*mock).js": ["coverage"],
+      "src/app/features/my-profile/**/!(*spec|*mock).js": ["coverage"],
+      "src/app/interceptors/**/!(*spec|*mock).js": ["coverage"],
       "src/**/!(*spec|*mock).js": ["coverage"],
     },
     coverageReporter: {

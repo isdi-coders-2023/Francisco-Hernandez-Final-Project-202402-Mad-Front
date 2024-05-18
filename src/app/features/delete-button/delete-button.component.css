@@ -5,11 +5,10 @@ div {
 button {
   background-color: white;
   color: #0765a4;
-  margin-inline: 8.8rem;
-  margin-bottom: 1rem;
   border-radius: 1rem;
-  padding: 0.5rem;
+  padding: 1rem;
   border: none;
+  margin-bottom: 2rem;
   &:hover {
     background-color: red;
     color: white;

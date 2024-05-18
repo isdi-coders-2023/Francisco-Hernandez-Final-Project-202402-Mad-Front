@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnDestroy, inject } from '@angular/core';
 import {
   Category,
   Project,
@@ -8,7 +8,8 @@ import { ProjectCardComponent } from '../project-card/project-card.component';
 import { HeaderComponent } from '../../shared/header/header.component';
 import { MenuComponent } from '../../shared/menu/menu.component';
 import { ProjectRepoService } from '../../services/projects.services/projects.repo/project.repo.service';
-import { RouterLink } from '@angular/router';
+import { Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-project-list',
@@ -21,39 +22,43 @@ import { RouterLink } from '@angular/router';
         <li><app-project-card [project]="item" /></li>
         }
       </ul>
-      <a [routerLink]="['/home']" routerLinkActive="router-link-active"
-        >volver</a
-      >
+      <a (click)="comeBack()" (keyup)="comeBack()" tabindex="0">volver</a>
     </section>`,
   styleUrl: './project-list.component.css',
-  imports: [ProjectCardComponent, HeaderComponent, MenuComponent, RouterLink],
+  imports: [ProjectCardComponent, HeaderComponent, MenuComponent],
 })
-export default class ProjectListComponent implements OnInit {
+export default class ProjectListComponent implements OnDestroy {
   projects: Project[] = [];
   repo = inject(ProjectRepoService);
   state = inject(ProjectStateService);
+  router = inject(Router);
   title: string = '';
   category!: Category;
-
+  subscription: Subscription;
   constructor() {
     this.state.titleCategory$.subscribe((data) => {
       this.title = data;
     });
-  }
-  ngOnInit(): void {
-    this.state.cagetory$.subscribe((data) => {
+    this.subscription = this.state.cagetory$.subscribe((data) => {
       if (!data) return;
       this.category = data;
       this.getProjectsByCategory();
     });
   }
 
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
+  }
+
   getProjectsByCategory() {
-    console.log('List GetCat');
     this.repo.getProjectByCategory(this.category).subscribe({
       next: (data) => {
         this.projects = data;
       },
     });
+  }
+
+  comeBack() {
+    this.router.navigate(['/home']);
   }
 }

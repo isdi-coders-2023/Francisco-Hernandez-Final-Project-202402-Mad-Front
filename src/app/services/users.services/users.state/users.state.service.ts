@@ -3,6 +3,7 @@ import { JwtPayload, jwtDecode } from 'jwt-decode';
 import { Project } from '../../../models/projects.models/projects.models';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { RepoUsersService } from '../repo.users/repo.users.service';
+import { Router } from '@angular/router';
 
 export type LoginState = 'idle' | 'logged' | 'error';
 
@@ -36,6 +37,7 @@ export class UsersStateService {
   private repoUsers = inject(RepoUsersService);
   private currentUsername = new BehaviorSubject<string>('');
   public currentUsername$ = this.currentUsername.asObservable();
+  router = inject(Router);
 
   constructor() {}
   getState(): Observable<State> {
@@ -76,5 +78,31 @@ export class UsersStateService {
 
   getUsername(username: string) {
     this.currentUsername.next(username);
+  }
+
+  updateUser(id: string, data: FormData) {
+    if (!id) return;
+
+    this.repoUsers.updateUser(id, data).subscribe({
+      next: (item) => {
+        const newState = { ...this.state, currentUser: item };
+        this.state$.next(newState);
+      },
+      error: () => {
+        this.router.navigate(['/error']);
+      },
+    });
+  }
+
+  deleteUser(id: string) {
+    this.repoUsers.delete(id).subscribe({
+      next: () => {
+        this.setLogout();
+        this.router.navigate(['']);
+      },
+      error: () => {
+        this.router.navigate(['/error']);
+      },
+    });
   }
 }

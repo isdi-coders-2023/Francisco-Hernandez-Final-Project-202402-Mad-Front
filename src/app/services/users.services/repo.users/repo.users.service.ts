@@ -32,9 +32,9 @@ export class RepoUsersService {
     return this.httpClient.post(url, data) as Observable<User>;
   }
 
-  updateUser(id: string, data: Partial<UserCreateDto>) {
+  updateUser(id: string, data: FormData) {
     const url = this.url + '/' + id;
-    return this.httpClient.patch(url, data);
+    return this.httpClient.patch<Partial<User>>(url, data);
   }
 
   delete(id: string) {

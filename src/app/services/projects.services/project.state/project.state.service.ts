@@ -6,6 +6,7 @@ import {
 } from '../../../models/projects.models/projects.models';
 import { BehaviorSubject } from 'rxjs';
 import { Router } from '@angular/router';
+import { UsersStateService } from '../../users.services/users.state/users.state.service';
 
 @Injectable({
   providedIn: 'root',
@@ -20,11 +21,27 @@ export class ProjectStateService {
   private category = new BehaviorSubject<Category | null>(null);
   public cagetory$ = this.category.asObservable();
   private myProjects = new BehaviorSubject<Project[]>([]);
+  public myProjects$ = this.myProjects.asObservable();
+  private userState = inject(UsersStateService);
 
   loadProjects() {
     this.repoProjects.getProject().subscribe({
       next: (data) => {
         this.projectState.next(data);
+      },
+      error: () => {
+        this.router.navigate(['/error']);
+      },
+    });
+  }
+
+  loadMyProjects() {
+    this.repoProjects.getProject().subscribe({
+      next: (data) => {
+        const result = data.filter((item) => {
+          return this.userState.state.currentPayload!.id === item.author.id;
+        });
+        this.myProjects.next(result);
       },
       error: () => {
         this.router.navigate(['/error']);
@@ -40,8 +57,8 @@ export class ProjectStateService {
   createProject(data: FormData) {
     this.repoProjects.createProject(data).subscribe({
       next: (data) => {
-        const newMyProjects = { ...this.myProjects, data };
-        return newMyProjects;
+        const newMyProjects = [...this.myProjects.value, data];
+        this.myProjects.next(newMyProjects);
       },
       error: () => {
         this.router.navigate(['/error']);
@@ -52,23 +69,12 @@ export class ProjectStateService {
   deleteProject(id: string) {
     this.repoProjects.deleteProject(id).subscribe({
       next: (data) => {
-        const newMyProjects = this.projectState.value.filter((item) => {
-          item.id !== data.id;
+        const newMyProjects = this.myProjects.value.filter((item) => {
+          return item.id !== data.id;
         });
-        return newMyProjects;
-      },
-      error: () => {
-        this.router.navigate(['/error']);
+        this.myProjects.next(newMyProjects);
       },
     });
-  }
-
-  getMyProjects() {
-    return this.myProjects.asObservable();
-  }
-
-  updateProjects(projects: Project[]) {
-    this.myProjects.next(projects);
   }
 
   getCategory() {

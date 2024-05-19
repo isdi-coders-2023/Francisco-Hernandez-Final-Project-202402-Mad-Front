@@ -1,4 +1,6 @@
 header {
+  position: relative;
+  height: 110px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -7,5 +9,9 @@ header {
   padding-inline: 2rem;
   h1 {
     color: #0765a4;
+  }
+  div {
+    position: absolute;
+    left: 23rem;
   }
 }

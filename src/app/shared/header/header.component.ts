@@ -7,7 +7,9 @@ import { Component } from '@angular/core';
   template: `
     <header>
       <h1><img src="../../../favicon.ico" alt="logo-canline" /> {{ title }}</h1>
-      <ng-content></ng-content>
+      <div>
+        <ng-content></ng-content>
+      </div>
     </header>
   `,
   styleUrl: './header.component.css',

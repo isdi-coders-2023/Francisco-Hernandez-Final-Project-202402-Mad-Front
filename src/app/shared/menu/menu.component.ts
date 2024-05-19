@@ -26,7 +26,7 @@ import { UsersStateService } from '../../services/users.services/users.state/use
         </li>
         <li>
           <a [routerLink]="['/myProfile']" routerLinkActive="router-link-active"
-            >perfil</a
+            >mi perfil</a
           >
         </li>
         <li>

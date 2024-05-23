@@ -20,21 +20,16 @@ import { UsersStateService } from '../../services/users.services/users.state/use
     <nav>
       <ul>
         <li>
-          <a [routerLink]="['/home']" routerLinkActive="router-link-active"
-            >categorias</a
-          >
+          <a [routerLink]="['/home']">categorias</a>
         </li>
         <li>
-          <a [routerLink]="['/myProfile']" routerLinkActive="router-link-active"
-            >mi perfil</a
-          >
+          <a [routerLink]="['/myProfile']">mi perfil</a>
         </li>
         <li>
-          <a
-            [routerLink]="['/myProjects']"
-            routerLinkActive="router-link-active"
-            >mis proyectos</a
-          >
+          <a [routerLink]="['/myProjects']">mis proyectos</a>
+        </li>
+        <li>
+          <a [routerLink]="['/myFavourites']">mis favoritos</a>
         </li>
         <li>
           <button (click)="logout()" [routerLink]="['/home']">salir</button>

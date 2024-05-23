@@ -6,6 +6,7 @@ import {
   Project,
   ProjectUpdateDto,
 } from '../../../models/projects.models/projects.models';
+import { User } from '../../../models/users.models/users.models';
 
 @Injectable({
   providedIn: 'root',
@@ -35,5 +36,10 @@ export class ProjectRepoService {
   deleteProject(id: string) {
     const url = this.url + '/';
     return this.httpClient.delete<Project>(url + id);
+  }
+
+  getUsersWhoSavedProject(projectId: string) {
+    const url = `${this.url}/${projectId}/saved-by-users`;
+    return this.httpClient.get<User[]>(url);
   }
 }

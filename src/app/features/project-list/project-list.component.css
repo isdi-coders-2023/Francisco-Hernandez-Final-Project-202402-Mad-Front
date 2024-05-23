@@ -4,7 +4,6 @@ section {
     background-color: white;
     color: #0765a4;
     text-align: center;
-    margin-inline: 8.5rem;
     margin-block: 1rem;
     border-radius: 1rem;
     padding: 0.5rem;
@@ -27,4 +26,21 @@ li {
   color: #0765a4;
   margin-inline: 3rem;
   padding-block: 1rem;
+}
+
+div {
+  margin-block: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+}
+.add-project {
+  font-size: x-large;
+  border-radius: 1rem;
+  border: 2px solid white;
+  margin-inline: 7rem;
+  &:hover {
+    background-color: white;
+    color: #0765a4;
+  }
 }

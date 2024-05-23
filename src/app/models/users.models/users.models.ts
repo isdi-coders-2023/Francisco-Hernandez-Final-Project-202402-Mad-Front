@@ -7,6 +7,7 @@ export type User = {
   password?: string;
   imageUrl?: string;
   projects: Project[];
+  savedProjects: Project[];
 };
 
 export type UserLogin = {

@@ -4,9 +4,20 @@ import {
   Category,
   Project,
 } from '../../../models/projects.models/projects.models';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { UsersStateService } from '../../users.services/users.state/users.state.service';
+import { User } from '../../../models/users.models/users.models';
+
+const initialProject: Project = {
+  author: {} as User,
+  title: '',
+  archive: '',
+  content: '',
+  id: '',
+  savedByUsers: [],
+  category: '' as Category,
+};
 
 @Injectable({
   providedIn: 'root',
@@ -23,6 +34,10 @@ export class ProjectStateService {
   private myProjects = new BehaviorSubject<Project[]>([]);
   public myProjects$ = this.myProjects.asObservable();
   private userState = inject(UsersStateService);
+  private detailCard = new BehaviorSubject<Project>(initialProject);
+  public detailCard$ = this.detailCard.asObservable();
+  private savedByUsers = new BehaviorSubject<Partial<User[]>>([]);
+  public savedByUsers$ = this.savedByUsers.asObservable();
 
   loadProjects() {
     this.repoProjects.getProject().subscribe({
@@ -79,5 +94,23 @@ export class ProjectStateService {
 
   getCategory() {
     return this.titleCategory.value;
+  }
+
+  selectCard(card: Project) {
+    this.detailCard.next(card);
+  }
+
+  getSelectedCard(): Observable<Project> {
+    return this.detailCard$;
+  }
+  getUsersWhoSavedProject(projectId: string) {
+    this.repoProjects.getUsersWhoSavedProject(projectId).subscribe({
+      next: (data) => {
+        this.savedByUsers.next(data);
+      },
+      error: () => {
+        this.router.navigate(['/error']);
+      },
+    });
   }
 }

@@ -7,6 +7,7 @@ import {
   UserLogin,
 } from '../../../models/users.models/users.models';
 import { Observable } from 'rxjs';
+import { Project } from '../../../models/projects.models/projects.models';
 
 @Injectable({
   providedIn: 'root',
@@ -27,7 +28,7 @@ export class RepoUsersService {
     return this.httpClient.get(this.url + '/' + id);
   }
 
-  createUser(data: UserCreateDto): Observable<User> {
+  createUser(data: UserCreateDto) {
     const url = this.url + '/register';
     return this.httpClient.post(url, data) as Observable<User>;
   }
@@ -39,5 +40,25 @@ export class RepoUsersService {
 
   delete(id: string) {
     return this.httpClient.delete(this.url + '/' + id);
+  }
+
+  saveProject(userId: string, projectId: string) {
+    return this.httpClient.post<Partial<Project>>(
+      this.url + '/' + userId + '/save-project/' + projectId,
+      {}
+    );
+  }
+
+  removeSavedProject(userId: string, projectId: string) {
+    return this.httpClient.delete<Partial<Project>>(
+      this.url + '/' + userId + '/remove-saved-project/' + projectId,
+      {}
+    );
+  }
+
+  getSavedProjects(userId: string) {
+    return this.httpClient.get<Project[]>(
+      this.url + '/' + userId + '/saved-projects'
+    );
   }
 }

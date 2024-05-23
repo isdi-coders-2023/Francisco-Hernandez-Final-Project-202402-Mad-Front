@@ -7,6 +7,7 @@ export type Project = {
   archive: string;
   category: Category;
   author: User;
+  savedByUsers: User[];
 };
 
 export type ProjectCreateDto = {

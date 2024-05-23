@@ -1,19 +1,19 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ProjectCardComponent } from './project-card.component';
+import MyFavouritesComponent from './my-favourites.component';
 import { provideHttpClient, withFetch } from '@angular/common/http';
 
-describe('ProjectCardComponent', () => {
-  let component: ProjectCardComponent;
-  let fixture: ComponentFixture<ProjectCardComponent>;
+describe('MyFavouritesComponent', () => {
+  let component: MyFavouritesComponent;
+  let fixture: ComponentFixture<MyFavouritesComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [ProjectCardComponent],
+      imports: [MyFavouritesComponent],
       providers: [provideHttpClient(withFetch())],
     }).compileComponents();
 
-    fixture = TestBed.createComponent(ProjectCardComponent);
+    fixture = TestBed.createComponent(MyFavouritesComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

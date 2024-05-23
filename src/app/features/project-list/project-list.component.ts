@@ -19,10 +19,24 @@ import { Subscription } from 'rxjs';
       <h2>{{ title }}</h2>
       <ul>
         @for (item of projects; track item.id) {
+
         <li><app-project-card [project]="item" /></li>
+
         }
       </ul>
-      <a (click)="comeBack()" (keyup)="comeBack()" tabindex="0">volver</a>
+      <div>
+        @if(projects.length === 0){
+        <a
+          (click)="addProject()"
+          (keyup)="addProject()"
+          tabindex="0"
+          class="add-project"
+        >
+          añadir proyecto</a
+        >
+        }
+        <a (click)="comeBack()" (keyup)="comeBack()" tabindex="0">volver</a>
+      </div>
     </section>`,
   styleUrl: './project-list.component.css',
   imports: [ProjectCardComponent, HeaderComponent, MenuComponent],
@@ -60,5 +74,8 @@ export default class ProjectListComponent implements OnDestroy {
 
   comeBack() {
     this.router.navigate(['/home']);
+  }
+  addProject() {
+    this.router.navigate(['/createProjects']);
   }
 }

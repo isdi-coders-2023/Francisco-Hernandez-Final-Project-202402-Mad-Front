@@ -21,6 +21,7 @@ export class AppComponent {
     if (!tokenValid) {
       return;
     }
+    console.log(this.state.state.savedProjects);
     this.state.setLogin(tokenValid);
   }
 }

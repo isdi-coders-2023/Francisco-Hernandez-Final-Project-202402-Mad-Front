@@ -21,12 +21,26 @@ export const routes: Routes = [
     loadComponent: () => import('./features/my-projects/my-projects.component'),
   },
   {
+    path: 'myFavourites',
+    title: 'Canline:misProyectosFavoritos',
+    canActivate: [loggedGuard],
+    loadComponent: () =>
+      import('./features/my-favourites/my-favourites.component'),
+  },
+  {
     path: 'projectList',
     title: 'Canline:Proyectos',
     canActivate: [loggedGuard],
     loadComponent: () =>
       import('./features/project-list/project-list.component'),
   },
+  {
+    path: 'projectDetails',
+    title: 'Canline:Detalles',
+    canActivate: [loggedGuard],
+    loadComponent: () => import('./features/details/details.component'),
+  },
+
   {
     path: 'createProjects',
     title: 'Canline:crearProyectos',

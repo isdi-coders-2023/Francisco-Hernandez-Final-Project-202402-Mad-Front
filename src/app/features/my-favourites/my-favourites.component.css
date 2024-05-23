@@ -1,0 +1,16 @@
+h2 {
+  background-color: white;
+  color: #0765a4;
+  border-radius: 1rem;
+  padding: 0.5rem;
+  text-align: center;
+  margin-inline: 8rem;
+  margin-block: 1rem;
+}
+li {
+  border-radius: 1rem;
+  background-color: white;
+  color: #0765a4;
+  margin-inline: 3rem;
+  padding-block: 1rem;
+}

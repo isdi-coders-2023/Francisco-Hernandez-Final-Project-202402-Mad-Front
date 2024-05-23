@@ -58,6 +58,7 @@ describe('ProjectStateService', () => {
         category: 'art',
         author: { id: '1', name: 'author', email: 'author@gmail.com' } as User,
         content: 'Content 1',
+        isFavourite: false,
         archive: 'foto',
       },
     ];
@@ -88,6 +89,7 @@ describe('ProjectStateService', () => {
         category: 'art',
         author: { id: '1', name: 'author', email: 'author@gmail.com' } as User,
         content: 'Content 1',
+        isFavourite: false,
         archive: 'foto',
       },
       {
@@ -100,6 +102,7 @@ describe('ProjectStateService', () => {
           email: 'author2@gmail.com',
         } as User,
         content: 'Content 2',
+        isFavourite: false,
         archive: 'foto2',
       },
     ];
@@ -145,6 +148,7 @@ describe('ProjectStateService', () => {
       category: 'art',
       author: { id: '1', name: 'author', email: 'author@gmail.com' } as User,
       content: 'Content 1',
+      isFavourite: false,
       archive: 'foto',
     };
     projectRepoService.createProject.and.returnValue(of(newProject));

@@ -1,7 +1,4 @@
 footer {
-  position: fixed;
-  bottom: 0;
-  width: 100%;
   background-color: #f7c600;
   display: flex;
   justify-content: space-between;

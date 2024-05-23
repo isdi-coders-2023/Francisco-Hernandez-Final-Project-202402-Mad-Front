@@ -19,6 +19,7 @@ export type State = {
   currentPayload: Payload | null;
   currentUser: unknown | null;
   projects: Project[];
+  savedProjects: Project[];
 };
 
 const initialState: State = {
@@ -27,6 +28,7 @@ const initialState: State = {
   currentPayload: null,
   currentUser: null,
   projects: [],
+  savedProjects: [],
 };
 
 @Injectable({
@@ -37,6 +39,7 @@ export class UsersStateService {
   private repoUsers = inject(RepoUsersService);
   private currentUsername = new BehaviorSubject<string>('');
   public currentUsername$ = this.currentUsername.asObservable();
+
   router = inject(Router);
 
   constructor() {}
@@ -102,6 +105,36 @@ export class UsersStateService {
       },
       error: () => {
         this.router.navigate(['/error']);
+      },
+    });
+  }
+
+  getSavedProjects(userId: string) {
+    this.repoUsers.getSavedProjects(userId).subscribe({
+      next: (projects) => {
+        this.state$.next({
+          ...this.state$.value,
+          savedProjects: projects,
+        });
+      },
+      error: () => {
+        this.router.navigate(['/error']);
+      },
+    });
+  }
+
+  saveProject(userId: string, projectId: string) {
+    this.repoUsers.saveProject(userId, projectId).subscribe({
+      next: () => {
+        this.getSavedProjects(userId);
+      },
+    });
+  }
+
+  removeSavedProject(userId: string, projectId: string) {
+    this.repoUsers.removeSavedProject(userId, projectId).subscribe({
+      next: () => {
+        this.getSavedProjects(userId);
       },
     });
   }

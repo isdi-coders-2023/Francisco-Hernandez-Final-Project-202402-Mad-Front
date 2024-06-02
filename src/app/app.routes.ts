@@ -48,5 +48,18 @@ export const routes: Routes = [
     loadComponent: () =>
       import('./features/create-project/create-project.component'),
   },
+  {
+    path: 'updateProject',
+    title: 'Canline:misProyectos',
+    canActivate: [loggedGuard],
+    loadComponent: () =>
+      import('./features/update-project/update-project.component'),
+  },
+  {
+    path: 'error',
+    title: 'Canline: error',
+    canActivate: [loggedGuard],
+    loadComponent: () => import('./features/error/error.component'),
+  },
   { path: '**', redirectTo: 'home' },
 ];

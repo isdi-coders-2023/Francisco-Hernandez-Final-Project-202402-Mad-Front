@@ -18,7 +18,7 @@ import { UsersStateService } from '../../services/users.services/users.state/use
     <section>
       <h2>Bienvenido estudiante</h2>
       <p>
-        Si quieres compartir tus apuntes y ayudar a los demas, hazte un usuario
+        Si quieres compartir tus apuntes y ayudar a los demas, create un usuario
         y disfruta aprendiendo lo que te gusta
       </p>
       <form
@@ -92,6 +92,7 @@ export class CreateUserComponent {
         this.state.setLogin(token);
       },
       error: () => {
+        this.router.navigate(['/error']);
         this.state.setLoginState('idle');
       },
     });

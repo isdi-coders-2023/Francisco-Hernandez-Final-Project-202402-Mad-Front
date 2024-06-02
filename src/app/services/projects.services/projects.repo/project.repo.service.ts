@@ -4,7 +4,6 @@ import { environment } from '../../../../environments/environment.development';
 import {
   Category,
   Project,
-  ProjectUpdateDto,
 } from '../../../models/projects.models/projects.models';
 import { User } from '../../../models/users.models/users.models';
 
@@ -28,9 +27,9 @@ export class ProjectRepoService {
     return this.httpClient.post<Project>(url, data);
   }
 
-  updateProject(id: string, data: ProjectUpdateDto) {
+  updateProject(id: string, data: FormData) {
     const url = this.url + '/';
-    return this.httpClient.patch(url + id, data);
+    return this.httpClient.patch<Project>(url + id, data);
   }
 
   deleteProject(id: string) {

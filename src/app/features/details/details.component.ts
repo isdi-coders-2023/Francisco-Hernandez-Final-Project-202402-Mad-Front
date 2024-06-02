@@ -17,10 +17,25 @@ import { MenuComponent } from '../../shared/menu/menu.component';
       <ul>
         <li>{{ project.content }}</li>
         <li><img [src]="project.archive" alt="project" width="150" /></li>
-        @if(currentUser?.id === project.author.id ){
+        <li>{{ project.author?.name }}</li>
+        @if(currentUser.id === project.author?.id ){
         <div>
-          <img src="../../../assets//icon-edit.png" alt="edit-icon" />
-          <img src="../../../assets//icon-delete.png" alt="delete-icon" />
+          <img
+            (click)="updateProject(project)"
+            (keyup)="updateProject(project)"
+            tabindex="0"
+            src="../../../assets/icon-edit-user.png"
+            alt="edit-icon"
+            width="35"
+          />
+          <img
+            (click)="delete(project.id)"
+            (keyup)="delete(project.id)"
+            tabindex="0"
+            src="../../../assets/icon-delete-user.png"
+            alt="delete-icon"
+            width="30"
+          />
         </div>
         }
       </ul>
@@ -39,13 +54,24 @@ export default class DetailsComponent implements OnInit {
   project!: Project;
   ngOnInit() {
     this.state.getSelectedCard().subscribe((card) => {
-      if (!card) return;
-      this.project = card;
+      if (card) {
+        this.project = card;
+      }
     });
 
     this.currentUser = this.userState.state.currentUser as User;
   }
   comeBack() {
     this.router.navigate(['/projectList']);
+  }
+
+  updateProject(project: Project) {
+    this.state.setCurrentProject(project);
+    this.router.navigate(['/updateProject']);
+  }
+
+  delete(id: string) {
+    this.state.deleteProject(id);
+    this.router.navigate(['/myProjects']);
   }
 }

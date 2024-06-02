@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { HeaderComponent } from '../../shared/header/header.component';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-error',
@@ -9,11 +10,11 @@ import { HeaderComponent } from '../../shared/header/header.component';
       <h2>Error</h2>
       <div>
         <img src="../../../assets/error.svg" alt="error-picture" width="300" />
-        <p>emos ido engañados</p>
+        <p>emoz sido engañados</p>
       </div>
-      <a href="">volver</a>
+      <a [routerLink]="['/home']">volver</a>
     </section> `,
   styleUrl: './error.component.css',
-  imports: [HeaderComponent],
+  imports: [HeaderComponent, RouterLink],
 })
-export class ErrorComponent {}
+export default class ErrorComponent {}

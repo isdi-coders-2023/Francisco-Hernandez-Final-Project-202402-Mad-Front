@@ -6,6 +6,14 @@ h2 {
   text-align: center;
   margin-inline: 8rem;
   margin-block: 1rem;
+  margin-bottom: 3rem;
+}
+ul {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+  margin-bottom: 2rem;
 }
 li {
   border-radius: 1rem;
@@ -13,4 +21,22 @@ li {
   color: #0765a4;
   margin-inline: 3rem;
   padding-block: 1rem;
+  padding-inline: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+.save-projects {
+  color: white;
+  text-align: center;
+  border: 2px solid white;
+  border-radius: 1rem;
+  padding: 0.8rem;
+  margin-inline: 4rem;
+  text-decoration: none;
 }

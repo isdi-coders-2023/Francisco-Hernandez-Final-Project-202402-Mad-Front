@@ -38,6 +38,8 @@ export class ProjectStateService {
   public detailCard$ = this.detailCard.asObservable();
   private savedByUsers = new BehaviorSubject<Partial<User[]>>([]);
   public savedByUsers$ = this.savedByUsers.asObservable();
+  private currentProject = new BehaviorSubject<Project>({} as Project);
+  public currentProject$ = this.currentProject.asObservable();
 
   loadProjects() {
     this.repoProjects.getProject().subscribe({
@@ -79,6 +81,24 @@ export class ProjectStateService {
         this.router.navigate(['/error']);
       },
     });
+  }
+
+  updateProject(id: string, data: FormData) {
+    this.repoProjects.updateProject(id, data).subscribe({
+      next: (item) => {
+        this.currentProject.next(item);
+        const updatedMyProjects = this.myProjects.value.map((project) =>
+          project.id === id ? item : project
+        );
+        this.myProjects.next(updatedMyProjects);
+      },
+      error: () => {
+        this.router.navigate(['/error']);
+      },
+    });
+  }
+  setCurrentProject(project: Project) {
+    this.currentProject.next(project);
   }
 
   deleteProject(id: string) {

@@ -4,7 +4,7 @@ import { MenuComponent } from '../../shared/menu/menu.component';
 import { FooterComponent } from '../../shared/footer/footer.component';
 import { DeleteButtonComponent } from '../delete-button/delete-button.component';
 import { UsersStateService } from '../../services/users.services/users.state/users.state.service';
-import { User, UserCreateDto } from '../../models/users.models/users.models';
+import { User } from '../../models/users.models/users.models';
 import { ProjectStateService } from '../../services/projects.services/project.state/project.state.service';
 import { Router, RouterLink } from '@angular/router';
 import { AsyncPipe } from '@angular/common';
@@ -35,7 +35,7 @@ import { UpdateUserComponent } from '../update-user/update-user.component';
           (click)="displayForm()"
           (keyup)="displayForm()"
           tabindex="0"
-          src="../../../assets/icon-edit.png"
+          src="../../../assets/icon-edit-user.png"
           alt="icon-edit"
           width="40px"
         />
@@ -68,7 +68,6 @@ export default class MyProfileComponent implements OnInit {
   projectState = inject(ProjectStateService);
   personalData!: User;
   isEditing = false;
-  editableData!: Partial<UserCreateDto>;
   router = inject(Router);
 
   ngOnInit() {

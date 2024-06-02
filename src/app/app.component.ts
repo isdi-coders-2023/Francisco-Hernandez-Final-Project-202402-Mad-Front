@@ -7,10 +7,22 @@ import { FooterComponent } from './shared/footer/footer.component';
   selector: 'app-root',
   standalone: true,
   template: `
-    <router-outlet />
-    <app-footer />
+    <div class="app-container">
+      <div class="main">
+        <router-outlet />
+      </div>
+
+      <app-footer />
+    </div>
   `,
-  styles: ``,
+  styles: `.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  .main{
+    flex: 1;
+  }
+}`,
   imports: [RouterOutlet, FooterComponent],
 })
 export class AppComponent {
@@ -21,7 +33,6 @@ export class AppComponent {
     if (!tokenValid) {
       return;
     }
-    console.log(this.state.state.savedProjects);
     this.state.setLogin(tokenValid);
   }
 }

@@ -7,7 +7,7 @@ import {
   State,
   UsersStateService,
 } from '../../services/users.services/users.state/users.state.service';
-import { ErrorComponent } from '../error/error.component';
+import ErrorComponent from '../error/error.component';
 import { FooterComponent } from '../../shared/footer/footer.component';
 
 @Component({

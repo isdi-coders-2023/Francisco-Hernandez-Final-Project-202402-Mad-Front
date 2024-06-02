@@ -1,29 +1,29 @@
-import { Component, ElementRef, ViewChild, inject } from '@angular/core';
 import {
-  FormControl,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+  Component,
+  ElementRef,
+  OnInit,
+  ViewChild,
+  inject,
+} from '@angular/core';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from '../../shared/header/header.component';
 import { MenuComponent } from '../../shared/menu/menu.component';
-import { FooterComponent } from '../../shared/footer/footer.component';
 import { Router } from '@angular/router';
 import { ProjectStateService } from '../../services/projects.services/project.state/project.state.service';
+import { UsersStateService } from '../../services/users.services/users.state/users.state.service';
 import {
-  Payload,
-  UsersStateService,
-} from '../../services/users.services/users.state/users.state.service';
-import { Category } from '../../models/projects.models/projects.models';
+  Category,
+  Project,
+} from '../../models/projects.models/projects.models';
 
 @Component({
-  selector: 'app-create-project',
+  selector: 'app-update-project',
   standalone: true,
   template: `
     <app-header> <app-menu /> </app-header>
     <section>
-      <h2>añadir proyecto</h2>
-      <form [formGroup]="createProjectForm">
+      <h2>editar</h2>
+      <form [formGroup]="updateProjectForm">
         <label>
           <input type="text" formControlName="title" placeholder="título"
         /></label>
@@ -48,59 +48,29 @@ import { Category } from '../../models/projects.models/projects.models';
         <label class="archive">
           <input type="file" #archive (change)="addFile()"
         /></label>
-        <button type="submit" (click)="addProject()">añadir</button>
+        <button type="submit" (click)="updateProject()">editar</button>
       </form>
       <a (click)="comeBack()" (keyup)="comeBack()" tabindex="0">volver</a>
     </section>
   `,
-  styleUrl: './create-project.component.css',
-  imports: [
-    ReactiveFormsModule,
-    HeaderComponent,
-    MenuComponent,
-    FooterComponent,
-  ],
+  styleUrl: './update-project.component.css',
+  imports: [ReactiveFormsModule, HeaderComponent, MenuComponent],
 })
-export default class CreateProjectComponent {
-  projectState = inject(ProjectStateService);
-  router = inject(Router);
-  state = inject(UsersStateService);
-  createProjectForm: FormGroup = new FormGroup({
-    title: new FormControl('', Validators.required),
-    content: new FormControl('', Validators.required),
-    category: new FormControl('categoria', Validators.required),
-    archive: new FormControl([null]),
-  });
+export default class UpdateProjectComponent implements OnInit {
   @ViewChild('archive') archive!: ElementRef;
+  state = inject(ProjectStateService);
+  userState = inject(UsersStateService);
+  router = inject(Router);
+  updateProjectForm!: FormGroup;
 
-  addProject() {
-    const currentUser = this.state.state.currentPayload as Payload;
-    const selectedCategory = this.createProjectForm.value.category;
-    const trueCategory = this.categoryMapping[selectedCategory];
-    const newProject = new FormData();
-    const titleToLowerCase = this.createProjectForm.value.title.toLowerCase();
-    const contentToLowerCase =
-      this.createProjectForm.value.content.toLowerCase();
+  currentProject!: Project;
 
-    newProject.append('title', titleToLowerCase);
-    newProject.append('content', contentToLowerCase);
-    newProject.append('category', trueCategory);
-    newProject.append('archive', this.createProjectForm.value.archive);
-    newProject.append('authorId', currentUser.id);
-
-    if (!newProject) {
-      throw new Error();
-    }
-    this.projectState.createProject(newProject);
-    this.router.navigate(['/myProjects']);
+  ngOnInit() {
+    this.state.currentProject$.subscribe((data) => {
+      this.currentProject = data;
+    });
+    this.initializeForm();
   }
-
-  addFile() {
-    const htmlElement: HTMLInputElement = this.archive.nativeElement;
-    const file = htmlElement.files![0];
-    this.createProjectForm.patchValue({ archive: file });
-  }
-
   categoryMapping: Record<string, Category> = {
     geografía: 'geography',
     anatomía: 'anatomy',
@@ -130,6 +100,37 @@ export default class CreateProjectComponent {
 
   getKeys(record: Record<string, string>) {
     return Object.keys(record);
+  }
+
+  initializeForm() {
+    this.updateProjectForm = new FormGroup({
+      title: new FormControl(this.currentProject.title),
+      content: new FormControl(this.currentProject.content),
+      category: new FormControl('categoria'),
+      archive: new FormControl(this.currentProject.archive),
+    });
+  }
+
+  updateProject() {
+    const currentTitle = this.updateProjectForm.value.title;
+    const currentContent = this.updateProjectForm.value.content;
+    const selectedCategory = this.updateProjectForm.value.category;
+    const trueCategory = this.categoryMapping[selectedCategory];
+    const updateProject = new FormData();
+
+    updateProject.append('id', this.currentProject.id);
+    updateProject.append('title', currentTitle);
+    updateProject.append('content', currentContent);
+    updateProject.append('archive', this.updateProjectForm.value.archive);
+    updateProject.append('category', trueCategory);
+
+    this.state.updateProject(this.currentProject.id, updateProject);
+    this.router.navigate(['/myProjects']);
+  }
+  addFile() {
+    const htmlElement: HTMLInputElement = this.archive.nativeElement;
+    const file = htmlElement.files![0];
+    this.updateProjectForm.patchValue({ archive: file });
   }
 
   comeBack() {
